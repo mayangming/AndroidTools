@@ -1,0 +1,32 @@
+DialogFragment的使用：
+官方：https://developer.android.google.cn/reference/kotlin/android/app/DialogFragment?hl=en
+
+Android-->Dialog/DialogFragment宽度高度修改/全屏,自定义样式
+https://www.jianshu.com/p/c094d8038b24
+
+给DialogFragment设置样式：
+https://blog.csdn.net/ttkatrina/article/details/54984375
+
+Android DialogFragment
+
+https://blog.csdn.net/as89751/article/details/97581729
+
+DialogFragment 的使用和一些坑点
+
+https://blog.csdn.net/little_story/article/details/81437013
+
+Android DialogFragment 的常用属性
+https://blog.csdn.net/weixin_37716758/article/details/101207339
+
+
+还在用Dialog吗——DialogFragment带你体验完美高效率
+https://blog.csdn.net/androidstarjack/article/details/73824885
+
+
+最全面的DialogFragment的使用，实现DialogFragment全屏、背景透明；
+https://blog.csdn.net/weixin_30824479/article/details/98609945
+
+
+Android 关于DialogFragment的充满及点击背景穿透
+
+https://blog.csdn.net/Keepsty/article/details/81359459
