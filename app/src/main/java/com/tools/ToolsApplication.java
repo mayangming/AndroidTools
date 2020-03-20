@@ -7,8 +7,8 @@ public class ToolsApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
-        init();
+//        instance = this;
+//        init();
     }
 
     public static ToolsApplication getInstance() {

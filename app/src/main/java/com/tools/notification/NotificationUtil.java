@@ -7,36 +7,53 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
+import androidx.annotation.DrawableRes;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.tools.MainActivity;
 import com.tools.R;
-import com.tools.ToolsApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /** 通知工具类
- * 示例代码如下：
- * NotificationUtil.showDefaultNotification(message);
- *
+ * 示例代码
+ *     private void buildNotification(ImBaseModel notificationModel){
+ *         ImNotificationModel imNotificationModel = (ImNotificationModel)notificationModel.getImContentModel();
+ *         NotificationUtil notificationUtil = NotificationUtil.getInstance();
+ *         NotificationUtil.NotificationUtilBuild build = notificationUtil.createBuild();
+ *         build.title = imNotificationModel.getTitle();
+ *         build.content = imNotificationModel.getDescription();
+ *         build.context = ImProvider.context;
+ *         if (!TextUtils.isEmpty(imNotificationModel.getLinkUrl())){
+ *             Log.e("YM","链接有值:"+imNotificationModel.getLinkUrl());
+ *             build.intent = goDqWeb(imNotificationModel.getLinkUrl(),imNotificationModel.getTitle());
+ *         }
+ *         notificationUtil.showNotification(build);
+ *     }
  * */
 public class NotificationUtil{
+    private static NotificationUtil notificationUtil = new NotificationUtil();
+    private int notificationId = 1;
+    public static NotificationUtil getInstance(){
+        return notificationUtil;
+    }
+
+    private NotificationUtil(){
+
+    }
 
     /**
      * momoren默认的通知消息
      * @param content 消息内容
      */
-    public static void showDefaultNotification(String content){
-        NotificationUtil notificationUtil = new NotificationUtil();
+    public void showDefaultNotification(String content,Context context){
         NotificationUtil.NotificationUtilBuild notificationUtilBuild = notificationUtil.createBuild();
-        notificationUtilBuild.context = ToolsApplication.getInstance();
+        notificationUtilBuild.context = context;
         notificationUtilBuild.title = "斗圈";
         notificationUtilBuild.content = content;
-//        过滤器，根据情况对通知进行拦截，判断通知是否显示
-//        notificationUtilBuild.addNotificationFilter(new DefaultNotificationFilter());
         notificationUtil.showNotification(notificationUtilBuild);
     }
 
@@ -45,7 +62,12 @@ public class NotificationUtil{
             throw new RuntimeException("NotificationUtilBuild 不能为空");
         }
 
+        if (null == build.context){
+            throw new RuntimeException("NotificationUtil中Context 不能为空");
+        }
+
         for (NotificationFilter filter : build.filterList){
+            Log.e("YM","拦截器:"+filter.filter());
             if (filter.filter()){
                 return;
             }
@@ -61,22 +83,26 @@ public class NotificationUtil{
             mChannel.setDescription(build.description);
             notificationManager.createNotificationChannel(mChannel);
         }
-
-        Intent notifyIntent = new Intent(build.context, MainActivity.class);
-        PendingIntent notifyPendingIntent =
-                PendingIntent.getActivity(
-                        build.context,
-                        1,
-                        notifyIntent,
-                        PendingIntent.FLAG_CANCEL_CURRENT
-                );
+        PendingIntent notifyPendingIntent = null;
+        if (null != build.intent){
+//            Intent notifyIntent = new Intent(build.context, MainActivity.class);
+            notifyPendingIntent =  PendingIntent.getActivity(
+                            build.context,
+                            1,
+//                            notifyIntent,
+                            build.intent,
+                            PendingIntent.FLAG_CANCEL_CURRENT
+                    );
+        }
 
         NotificationCompat.Builder notificationCompatBuilder = new NotificationCompat.Builder( build.context, build.channelId);
         notificationCompatBuilder.setAutoCancel(true);
         notificationCompatBuilder.setContentTitle(build.title);
         notificationCompatBuilder.setContentText(build.content);
         notificationCompatBuilder.setSmallIcon(R.mipmap.ic_launcher);
-        notificationCompatBuilder.setContentIntent(notifyPendingIntent);
+        if (null != notifyPendingIntent){
+            notificationCompatBuilder.setContentIntent(notifyPendingIntent);
+        }
         notificationCompatBuilder.setPriority(NotificationManagerCompat.IMPORTANCE_HIGH);
         notificationCompatBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         Notification notification = notificationCompatBuilder.build();
@@ -91,6 +117,8 @@ public class NotificationUtil{
     public class NotificationUtilBuild{
         public int notificationId = 1;
         public String notificationTag = "chat";
+//        public PendingIntent pendingIntent;//点击跳转操作
+        public Intent intent;//点击跳转操作
         public Context context;
         public String title = "";
         public String content = "";
@@ -98,12 +126,19 @@ public class NotificationUtil{
         public String channelId = "chat";
         public String channelName = "聊天";
         public String description = "聊天通知";
+        public @DrawableRes
+        int idRed = R.mipmap.ic_launcher;
 //        public NotificationFilter filter = new DefaultNotificationFilter();//拦截器
         private List<NotificationFilter> filterList = new ArrayList<>();//拦截器集合
         public void addNotificationFilter(NotificationFilter filter){
             filterList.add(filter);
         }
 
+        public NotificationUtilBuild() {
+            NotificationUtil.this.notificationId = NotificationUtil.this.notificationId + 1;
+            notificationId = NotificationUtil.this.notificationId;
+            Log.e("Ym","notification:"+notificationId);
+        }
     }
 
 }
