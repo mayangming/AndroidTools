@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.common.tools" >
+    <application>
+        <provider
+            android:authorities="com.common.provider"
+            android:name=".provider.CommonProvider"
+            android:exported="false"/>
+    </application>
+</manifest>

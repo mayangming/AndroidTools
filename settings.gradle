@@ -1,2 +1,4 @@
-include ':app'
 rootProject.name='AndroidTools'
+include ':app'
+include ':common'
+include ':httplibary'

@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.tools.dialog.OpenGiftDialog;
+import com.tools.util.NetWorkUtil;
 import com.ywl5320.wlmedia.WlMedia;
 import com.ywl5320.wlmedia.enums.WlCodecType;
 import com.ywl5320.wlmedia.enums.WlPlayModel;
@@ -18,6 +19,7 @@ import com.ywl5320.wlmedia.surface.WlTextureView;
 public class MainActivity extends AppCompatActivity {
     private WlTextureView wlTextureView;
     private  WlMedia wlMedia;
+    private NetWorkUtil netWorkUtil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,19 @@ public class MainActivity extends AppCompatActivity {
         wlTextureView = findViewById(R.id.wlTextureView);
         getVideoPath();
         startVideo();
+        netWorkUtil = new NetWorkUtil(new NetWorkUtil.NetWorkConnectIpc() {
+            @Override
+            public void isConnect(boolean isConnect) {
+                Log.e("YM","网络链接:"+isConnect);
+            }
+
+            @Override
+            public void connectChange(boolean isConnect) {
+                Log.e("YM","网络切换:"+isConnect);
+            }
+        });
+        netWorkUtil.isNetWorkConnect();
+        netWorkUtil.addConnectChangeListener(this);
     }
 
     /**

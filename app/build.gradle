@@ -28,6 +28,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -37,8 +38,43 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation "org.projectlombok:lombok:1.18.10"
-    annotationProcessor "org.projectlombok:lombok:1.18.10"
     implementation 'ywl.ywl5320:wlmedia:1.0.6'
     implementation 'org.greenrobot:eventbus:3.2.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    /**
+     * 导航栏，在google的思想里面意为不同页面的跳转控制中心
+     */
+    implementation "androidx.navigation:navigation-fragment:2.2.1"
+    implementation "androidx.navigation:navigation-ui:2.2.1"
+    implementation "androidx.fragment:fragment:1.2.3"
+    /**
+     * 数据库
+     */
+    implementation 'androidx.room:room-runtime:2.2.5'
+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+    implementation 'androidx.room:room-coroutines:2.1.0-alpha04'
+    /**
+     * 以下主要是保存fragment切换时候的参数，与viewModel配套使用
+     * lifecycle-extensions包含栏LiveData和ViewModel的相关库，所以不需要进行引入
+     */
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
+
+    implementation project(path: ':common')
+    implementation project(path: ':httplibary')
+    /** 权限判断
+     *    https://github.com/tbruyelle/RxPermissions
+     *    与RXJava配套使用
+     * */
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
+    //  SharedPreferences存储类库  https://github.com/WhiteDG/EasySP
+    implementation 'com.white:easysp:1.0.0'
+    //  知乎图片选择库  https://github.com/zhihu/Matisse
+//  学习地址： https://blog.csdn.net/qiaoshi96_bk/article/details/76164913
+    implementation 'com.zhihu.android:matisse:0.5.3-beta3'
+//  图片裁剪库uCrop:  https://github.com/Yalantis/uCrop
+    implementation 'com.github.yalantis:ucrop:2.2.4-native'
 }
