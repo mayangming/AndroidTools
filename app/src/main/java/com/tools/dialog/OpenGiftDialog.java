@@ -16,6 +16,8 @@ import com.tools.R;
 
 /**
  * 打开礼物的对话框
+ * 具体注意事项看我写的帖子：
+ * https://blog.csdn.net/Mr_Tony/article/details/104783448
  */
 public class OpenGiftDialog extends AppCompatDialogFragment {
     public final static String ACTION_TYPE = "type";//哪种类型，用于区分显示什么内容
