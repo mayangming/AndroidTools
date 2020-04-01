@@ -3,7 +3,11 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+//        jcenter()
+        maven { url 'https://jitpack.io' }
+        //maven代理仓库，加速下载
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
         
     }
     dependencies {
@@ -17,7 +21,11 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+//        jcenter()
+        maven { url 'https://jitpack.io' }
+        //maven代理仓库，加速下载
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
         
     }
 }
