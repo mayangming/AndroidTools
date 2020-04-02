@@ -2,7 +2,7 @@
     package="com.common.tools" >
     <application>
         <provider
-            android:authorities="com.common.provider"
+            android:authorities="${applicationId}.provider"
             android:name=".provider.CommonProvider"
             android:exported="false"/>
     </application>
