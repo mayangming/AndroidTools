@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * 基础的RecycleViewAdapter基类
+ * 如果想要触发item点击事件需要重写RecycleBaseAdapter中的onBindViewHolder
  * @param <VH>
  */
 public abstract class RecycleBaseAdapter<VH extends RecycleBaseViewHolder> extends RecyclerView.Adapter<VH>{
