@@ -1,6 +1,9 @@
 package com.common.weight.recycleview;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
  * @param <VH>
  */
 public abstract class RecycleBaseAdapter<VH extends RecycleBaseViewHolder> extends RecyclerView.Adapter<VH>{
-
+    protected Context context;
+    protected LayoutInflater layoutInflater;
     protected RecycleItemOnClickListener recycleItemOnClickListener;
 
     /**
@@ -20,6 +24,21 @@ public abstract class RecycleBaseAdapter<VH extends RecycleBaseViewHolder> exten
      */
     public void setRecycleItemOnClickListener(RecycleItemOnClickListener recycleItemOnClickListener) {
         this.recycleItemOnClickListener = recycleItemOnClickListener;
+    }
+
+    @NonNull
+    @Override
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        if (null == context){
+            context = parent.getContext();
+        }
+
+        if (null == layoutInflater){
+            layoutInflater = LayoutInflater.from(context);
+        }
+
+        return null;
     }
 
     @Override
